@@ -10,7 +10,7 @@ const Home = () => {
     useEffect(() => {
         fetch(`${baseApiUrl}/posts?page=${currentPage}`)
             .then((res) => {
-                // recupera i dati della paginazione dagli header
+               
                 setLastPage(parseInt(res.headers.get('X-WP-TotalPages')));
                 return res.json();
             })
@@ -33,23 +33,7 @@ const Home = () => {
             });
         }
         return paginationArr;
-        /*
-    [
-        {
-            n: 1,
-            active: false
-        },
-        {
-            n: 2,
-            active: true
-        },
-        {
-            n: 3,
-            active: false
-        },
 
-    ]
-    */
     }
 
     return (
