@@ -1,22 +1,25 @@
 import { Link } from "react-router-dom";
+import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
 
 function MyNavbar() {
   return (
-    <Nav activeKey="/home" onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}>
-      <Nav.Item>
-        <Link to="/">Home</Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Link to="/">Home</Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Link to="/">Home</Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Link to="/">Home</Link>
-      </Nav.Item>
-    </Nav>
+    <>
+      
+      <Navbar bg="primary" data-bs-theme="dark">
+        <Container>
+          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+          <Nav className="me-auto">
+            <Link to="/">Home</Link>
+            <Nav.Link href="#features">Features</Nav.Link>
+            <Nav.Link href="#pricing">Pricing</Nav.Link>
+          </Nav>
+        </Container>
+      </Navbar>
+
+     
+    </>
   );
 }
 

@@ -38,15 +38,16 @@ const Home = () => {
 
     return (
         <>
-            <ul>
+            
                 {posts.map((post) => (
-                    <li key={post.id}>
-                        <Link to={`/posts/${post.id}`}>
+                    <>
+                        <Link to={`/posts/${post.id}`} key={post.id}>
                             {post.title.rendered}
                         </Link>
-                    </li>
+                        <div  dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}  ></div>
+                    </>
                 ))}
-            </ul>
+            
 
             <nav>
                 <ul className="pagination">
