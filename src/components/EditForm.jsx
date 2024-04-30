@@ -46,7 +46,7 @@ const EditForm = () => {
         <label>Blog body:</label>
         <textarea required value={newContent} onChange={(e) => setNewContent(e.target.value)}></textarea>
         <label>Blog author:</label>
-        <button>Publish</button>
+        <button>Save changes</button>
       </form>
     </div>
   );
