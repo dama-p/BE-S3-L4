@@ -2,7 +2,7 @@ import { useState } from "react";
 import { baseApiUrl } from "../constants.js";
 import Alert from "react-bootstrap/Alert";
 
-const PostForm = () => {
+const EditForm = () => {
   const [newTitle, setNewTitle] = useState("");
   const [newContent, setNewContent] = useState("");
 
@@ -50,4 +50,4 @@ const PostForm = () => {
   );
 };
 
-export default PostForm;
+export default EditForm;

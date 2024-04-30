@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
 import { baseApiUrl } from "../constants.js";
 import { Link } from "react-router-dom/dist";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import { Row, Col, Container } from "react-bootstrap";
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const [deletes, setDeletes] = useState(0);
   const [lastPage, setLastPage] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`${baseApiUrl}/posts?page=${currentPage}&_embed=1`)
@@ -43,7 +49,6 @@ const Home = () => {
         Authorization: `Basic ${authString}`,
       },
       method: "DELETE",
-      // body: JSON.stringify(obj)
     }).then((res) => {
       if (res.ok) {
         setDeletes(deletes + 1);
@@ -54,41 +59,73 @@ const Home = () => {
 
   return (
     <>
-      {posts.map((post) => (
-        <>
-          <Link to={`/posts/${post.id}`} key={post.id}>
-            {post.title.rendered}
-          </Link>{" "}
-          <button className="btn btn-danger" onClick={() => deletePost(post.id)}>
-            Delete
-          </button>
-          <div dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}></div>
-        </>
-      ))}
+      <Container>
+        <Row className="mt-5 justify-content-center">
+          {posts.map((post) => (
+            <>
+            <Col key={post.id} className="mt-2 d-flex justify-content-center">
+              <Card style={{ width: "18rem" }}>
+                 
+                <Card.Img variant="top"
+                  src={
+                    post._embedded && post._embedded["wp:featuredmedia"]
+                      ? post._embedded["wp:featuredmedia"][0].source_url
+                      : "https://www.eclosio.ong/wp-content/uploads/2018/08/default.png"
+                  }
+                />
 
-      <nav>
-        <ul className="pagination">
-          <li className={`page-item ${currentPage === 1 && "disabled"}`}>
-            <span className="page-link" onClick={() => currentPage !== 1 && changePage(currentPage - 1)}>
-              Previous
-            </span>
-          </li>
-
-          {generatePaginationArray().map((page) => (
-            <li key={page.n} className={`page-item ${page.active && "active"}`}>
-              <span className="page-link" onClick={() => changePage(page.n)}>
-                {page.n}
-              </span>
-            </li>
+                <Card.Body className="d-flex flex-column">
+                  <Card.Title>
+                    {/* <Link to={`/posts/${post.id}`}>{post.title.rendered}</Link> */}
+                    {post.title.rendered}
+                  </Card.Title>
+                  <Card.Text dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}></Card.Text>
+                  <div className="d-flex justify-content-center mt-auto">
+                  <Button variant="info" className="mt-auto mx-1" onClick={() =>  navigate(`/posts/${post.id}`)}>
+                    Details
+                  </Button>
+                  <Button variant="warning" className="mt-auto mx-1" onClick={() => navigate(`/posts/${post.id}`)}>
+                    Edit
+                  </Button>
+                  <Button variant="danger" className="mt-auto mx-1" onClick={() => deletePost(post.id)}>
+                    Delete
+                  </Button>
+                  </div>
+                </Card.Body>
+              </Card>
+              </Col>
+            </>
           ))}
+        </Row>
 
-          <li className={`page-item ${currentPage === "lastPage" && "disabled"}`}>
-            <span className="page-link" onClick={() => currentPage !== lastPage && changePage(currentPage + 1)}>
-              Next
-            </span>
-          </li>
-        </ul>
-      </nav>
+        <Row className="mt-4">
+          <Col className="d-flex justify-content-center">
+            <nav>
+              <ul className="pagination">
+                <li className={`page-item ${currentPage === 1 && "disabled"}`}>
+                  <span className="page-link" onClick={() => currentPage !== 1 && changePage(currentPage - 1)}>
+                    Previous
+                  </span>
+                </li>
+
+                {generatePaginationArray().map((page) => (
+                  <li key={page.n} className={`page-item ${page.active && "active"}`}>
+                    <span className="page-link" onClick={() => changePage(page.n)}>
+                      {page.n}
+                    </span>
+                  </li>
+                ))}
+
+                <li className={`page-item ${currentPage === "lastPage" && "disabled"}`}>
+                  <span className="page-link" onClick={() => currentPage !== lastPage && changePage(currentPage + 1)}>
+                    Next
+                  </span>
+                </li>
+              </ul>
+            </nav>
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 };
