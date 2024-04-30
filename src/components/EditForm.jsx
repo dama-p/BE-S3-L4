@@ -1,24 +1,23 @@
 import { useEffect, useState } from "react";
 import { baseApiUrl } from "../constants.js";
-import { useParams } from 'react-router-dom/dist';
-
+import { useParams } from "react-router-dom/dist";
 
 const EditForm = () => {
   const [newTitle, setNewTitle] = useState("");
   const [newContent, setNewContent] = useState("");
   const [initialData, setInitialData] = useState(null);
-  console.log("INITIAL DATA", initialData)
+  console.log("INITIAL DATA", initialData);
 
   const { id } = useParams();
 
   useEffect(() => {
     fetch(`${baseApiUrl}/posts/${id}?_embed=1`)
-        .then((res) => res.json())
-        .then((data) => {
-            console.log("DATA", data);
-            setInitialData(data);
-        });
-}, [id]);
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("DATA", data);
+        setInitialData(data);
+      });
+  }, [id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
