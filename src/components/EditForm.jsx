@@ -4,7 +4,7 @@ import { Container, Button, Modal, Form, Row, Col } from "react-bootstrap";
 import { baseApiUrl } from "../constants.js";
 
 
-const PostDetails = () => {
+const EditForm = () => {
   const [post, setPost] = useState(null);
   const [newTitle, setNewTitle] = useState("");
   const [newContent, setNewContent] = useState("");
@@ -77,11 +77,11 @@ const PostDetails = () => {
   
   
             <Form.Group controlId="formTitle">
-              <Form.Label>Titolo</Form.Label>
+              <Form.Label>Title</Form.Label>
               <Form.Control type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
             </Form.Group>
             <Form.Group controlId="formContent">
-              <Form.Label>Contenuto</Form.Label>
+              <Form.Label>Content</Form.Label>
               <Form.Control as="textarea" defaultValue={newContent} onChange={(e) => setNewContent(e.target.value)} />
             </Form.Group>
       
@@ -98,4 +98,4 @@ const PostDetails = () => {
   );
 };
 
-export default PostDetails;
+export default EditForm;
