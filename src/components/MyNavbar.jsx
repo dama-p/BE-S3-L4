@@ -9,16 +9,12 @@ function MyNavbar() {
       <Navbar bg="primary" data-bs-theme="dark">
         <Container>
           <Navbar.Brand href="#home">Wp-react</Navbar.Brand>
-          <Nav className="me-auto">
-            <Nav.Link>
-              {" "}
+          <Nav className="me-auto gap-3">
+           
               <Link to="/">Home</Link>
-            </Nav.Link>
-            <Nav.Link>
-              {" "}
+            
               <Link to="/form">Add a new post!</Link>
-            </Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
+            
           </Nav>
         </Container>
       </Navbar>
