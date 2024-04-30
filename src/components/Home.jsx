@@ -99,7 +99,7 @@ const Home = () => {
         </Row>
 
         <Row className="mt-4">
-          <Col className="d-flex justify-content-center">
+          <Col className="d-flex justify-content-center" style={{cursor: "pointer"}}>
             <nav>
               <ul className="pagination">
                 <li className={`page-item ${currentPage === 1 && "disabled"}`}>
