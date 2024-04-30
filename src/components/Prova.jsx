@@ -6,12 +6,10 @@ import { baseApiUrl } from "../constants.js";
 
 const PostDetails = () => {
   const [post, setPost] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const [newTitle, setNewTitle] = useState("");
   const [newContent, setNewContent] = useState("");
   const { id } = useParams();
-  
-  const authString = btoa("wp-react:Mjyv rDpX jX2C iVMo nj3M A4Tm");
-
 
   useEffect(() => {
     fetch(`${baseApiUrl}/posts/${id}`)
@@ -25,6 +23,9 @@ const PostDetails = () => {
   }, [id]);
 
 
+  const authString = btoa("wp-react:Mjyv rDpX jX2C iVMo nj3M A4Tm");
+ 
+  
 
   const deletePost = () => {
     fetch(`${baseApiUrl}/posts/${id}`, {
@@ -36,12 +37,12 @@ const PostDetails = () => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Error while deleting");
+          throw new Error("Impossibile eliminare il post");
         }
-        window.alert("Post successfully deleted!");
+        console.log("Post eliminato con successo");
       })
       .catch((error) => {
-        console.error("Error while deleting:", error);
+        console.error("Errore durante l'eliminazione del post:", error);
       });
   };
 
@@ -63,7 +64,8 @@ const PostDetails = () => {
         if (!response.ok) {
           throw new Error("Impossibile aggiornare il post");
         }
-        window.alert("Post successfully updated!");
+        console.log("Post aggiornato con successo");
+        setShowModal(false);
       })
       .catch((error) => {
         console.error("Errore durante l'aggiornamento del post:", error);
@@ -74,8 +76,24 @@ const PostDetails = () => {
     post && (
       <>
         <Container>
-  
-  
+          <h1 className="text-center display-3 fw-bold">{post.title.rendered}</h1>
+          <div dangerouslySetInnerHTML={{ __html: post.content.rendered }}></div>
+
+          <div className="d-flex justify-content-end mt-4">
+            <Button variant="danger" onClick={deletePost}>
+              Elimina
+            </Button>
+
+            <Button className="ms-3" variant="primary" onClick={() => setShowModal(true)}>
+              Modifica
+            </Button>
+          </div>
+        </Container>
+        <Modal show={showModal} onHide={() => setShowModal(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Modifica Contenuto</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
             <Form.Group controlId="formTitle">
               <Form.Label>Titolo</Form.Label>
               <Form.Control type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
@@ -84,15 +102,16 @@ const PostDetails = () => {
               <Form.Label>Contenuto</Form.Label>
               <Form.Control as="textarea" defaultValue={newContent} onChange={(e) => setNewContent(e.target.value)} />
             </Form.Group>
-      
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => setShowModal(false)}>
+              Annulla
+            </Button>
             <Button variant="primary" onClick={handleSave}>
               Salva
             </Button>
-            <Button variant="danger" onClick={deletePost}>
-              Elimina
-            </Button>
-            </Container>
- 
+          </Modal.Footer>
+        </Modal>
       </>
     )
   );
