@@ -9,7 +9,7 @@ function MyNavbar() {
       <Navbar bg="primary" data-bs-theme="dark">
         <Container>
           <Navbar.Brand href="#home">Wp-react</Navbar.Brand>
-          <Nav className="me-auto gap-3">
+          <Nav className="gap-3 ms-auto">
            
               <Link to="/" className="text-white fw-bold" style={{textDecoration: "none"}}>Home</Link>
             
