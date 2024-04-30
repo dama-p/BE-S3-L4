@@ -84,7 +84,7 @@ const Home = () => {
                   <Button variant="info" className="mt-auto mx-1" onClick={() =>  navigate(`/posts/${post.id}`)}>
                     Details
                   </Button>
-                  <Button variant="warning" className="mt-auto mx-1" onClick={() => navigate(`/posts/${post.id}`)}>
+                  <Button variant="warning" className="mt-auto mx-1" onClick={() => navigate(`/edit/${post.id}`)}>
                     Edit
                   </Button>
                   <Button variant="danger" className="mt-auto mx-1" onClick={() => deletePost(post.id)}>

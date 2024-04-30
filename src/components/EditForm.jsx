@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { baseApiUrl } from "../constants.js";
-import Alert from "react-bootstrap/Alert";
+import { useParams } from 'react-router-dom/dist';
 
 const EditForm = () => {
   const [newTitle, setNewTitle] = useState("");
   const [newContent, setNewContent] = useState("");
 
+  const { id } = useParams();
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const authString = btoa("wp-react:Mjyv rDpX jX2C iVMo nj3M A4Tm");
-    fetch(`${baseApiUrl}/posts/`, {
-      method: "POST",
+    fetch(`${baseApiUrl}/posts/${id}`, {
+      method: "PUT",
       headers: { "Content-Type": "application/json", Authorization: `Basic ${authString}` },
       body: JSON.stringify({
         title: newTitle,
