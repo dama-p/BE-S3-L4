@@ -40,21 +40,23 @@ const PostForm = () => {
   return (
 
     <>
-    <Container>
+    <Container style={{ maxWidth: '60%' }} className="mt-4">
 
 
-        <Form.Group controlId="formTitle">
-          <Form.Label>Title</Form.Label>
+        <Form.Group controlId="formTitle" className="mb-3">
+          <Form.Label className="fs-3">Title</Form.Label>
           <Form.Control type="text" required value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
         </Form.Group>
-        <Form.Group controlId="formContent">
-          <Form.Label>Content</Form.Label>
-          <Form.Control as="textarea" required value={newContent} onChange={(e) => setNewContent(e.target.value)} />
+        <Form.Group controlId="formContent" className="mb-3">
+          <Form.Label className="fs-3">Content</Form.Label>
+          <Form.Control as="textarea" required value={newContent} style={{ height: '300px' }} onChange={(e) => setNewContent(e.target.value)} />
         </Form.Group>
+
+        <div className="d-flex ms-auto">
   
         <Button variant="primary" onClick={handleSubmit}>
-          Salva
-        </Button>
+          Publish
+        </Button></div>
 
         </Container>
 

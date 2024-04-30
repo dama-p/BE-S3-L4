@@ -73,19 +73,19 @@ const EditForm = () => {
   return (
     post && (
       <>
-        <Container>
+        <Container style={{ maxWidth: '60%' }} className="mt-4">
   
   
-            <Form.Group controlId="formTitle">
-              <Form.Label>Title</Form.Label>
+            <Form.Group controlId="formTitle" className="mb-3">
+            <Form.Label className="fs-3">Title</Form.Label>
               <Form.Control type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
             </Form.Group>
-            <Form.Group controlId="formContent">
-              <Form.Label>Content</Form.Label>
+            <Form.Group controlId="formContent" className="mb-3">
+            <Form.Label className="fs-3">Content</Form.Label>
               <Form.Control as="textarea" defaultValue={newContent} onChange={(e) => setNewContent(e.target.value)} />
             </Form.Group>
       
-            <Button variant="primary" onClick={handleSave}>
+            <Button variant="primary" onClick={handleSave} className="me-2">
               Salva
             </Button>
             <Button variant="danger" onClick={deletePost}>
