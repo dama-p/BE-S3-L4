@@ -11,9 +11,9 @@ function MyNavbar() {
           <Navbar.Brand href="#home">Wp-react</Navbar.Brand>
           <Nav className="me-auto gap-3">
            
-              <Link to="/">Home</Link>
+              <Link to="/" className="text-white fw-bold" style={{textDecoration: "none"}}>Home</Link>
             
-              <Link to="/form">Add a new post!</Link>
+              <Link to="/form" className="text-white fw-bold" style={{textDecoration: "none"}}>Add a new post!</Link>
             
           </Nav>
         </Container>
