@@ -1,1 +1,1 @@
-export const baseApiUrl = 'http://localhost/wp-epicode/wp-json/wp/v2';
+export const baseApiUrl = 'http://localhost/wp-react/wp-json/wp/v2';

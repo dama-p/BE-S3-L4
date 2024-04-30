@@ -6,19 +6,22 @@ import Navbar from "react-bootstrap/Navbar";
 function MyNavbar() {
   return (
     <>
-      
       <Navbar bg="primary" data-bs-theme="dark">
         <Container>
-          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+          <Navbar.Brand href="#home">Wp-react</Navbar.Brand>
           <Nav className="me-auto">
-            <Link to="/">Home</Link>
-            <Nav.Link href="#features">Features</Nav.Link>
+            <Nav.Link>
+              {" "}
+              <Link to="/">Home</Link>
+            </Nav.Link>
+            <Nav.Link>
+              {" "}
+              <Link to="/form">Add a new post!</Link>
+            </Nav.Link>
             <Nav.Link href="#pricing">Pricing</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
-
-     
     </>
   );
 }
