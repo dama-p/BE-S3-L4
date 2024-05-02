@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { baseApiUrl } from "../constants.js";
 import { Link } from "react-router-dom/dist";
-import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import { Row, Col, Container } from "react-bootstrap";
+import { Row, Col, Container, Form, Button } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
@@ -11,13 +10,13 @@ const Home = () => {
   const [deletes, setDeletes] = useState(0);
   const [lastPage, setLastPage] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`${baseApiUrl}/posts?page=${currentPage}&_embed=1`)
       .then((res) => {
-        // recupera i dati della paginazione dagli header
         setLastPage(parseInt(res.headers.get("X-WP-TotalPages")));
         return res.json();
       })
@@ -42,6 +41,19 @@ const Home = () => {
     return paginationArr;
   }
 
+
+  const filteredArticles = posts.filter((post) =>
+  post.title.rendered.toLowerCase().includes(searchQuery.toLowerCase())
+);
+
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+    setCurrentPage(1); 
+
+  };
+
+
+
   const deletePost = (postId) => {
     const authString = btoa("wp-react:Mjyv rDpX jX2C iVMo nj3M A4Tm");
     fetch(`${baseApiUrl}/posts/${postId}`, {
@@ -60,8 +72,21 @@ const Home = () => {
   return (
     <>
       <Container>
-        <Row className="mt-5 justify-content-center">
-          {posts.map((post) => (
+      <Row className="my-5 justify-content-center">
+        <Col>
+        <Form.Label htmlFor="inlineFormInputName" visuallyHidden>
+            Article name
+          </Form.Label>
+          <Form.Control id="inlineFormInputName" placeholder="Type your post title here"   value={searchQuery}
+            onChange={handleSearch}/></Col>
+          <Col className="col-1">
+          <Button type="submit">Search</Button>
+       
+ 
+</Col>
+      </Row>
+        <Row className="justify-content-center">
+          {filteredArticles.map((post) => (
             <>
             <Col key={post.id} className="mt-2 d-flex justify-content-center">
               <Card style={{ width: "18rem" }}>
